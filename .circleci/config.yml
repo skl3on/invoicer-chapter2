@@ -13,9 +13,15 @@ jobs:
 
       - run:
          name: Setup environment 
-          keys:
-            - go-mod-v4-{{ checksum "go.sum" }}
-      - run:
+          command:
+            - gb="/src/github.com/${circle_project_username}";
+            if [${circle_project_username} =='securing-devops']; then
+               dr="securingdevops"
+               fi
+               cat >>$Bash_ENV <<EOF
+               export GOPATH_HEAD="$(echo ${GOPATH}cut -d ':' -f 1)"
+               export GOPATH_BASE="$(echo"
+                  run:
           name: Install Dependencies
           command: go mod download
       - save_cache:
